@@ -3,11 +3,11 @@ import stream_line_sender_constants as slsc
 
 def classify_temperature_breach(coolingType, temperatureInC):
     limits = temperature_breach_limit(coolingType)
-    return (coolingType,
-        temperatureInC,
-        limits['lowerLimit'],
-        limits['upperLimit']
-    )
+    json = {"coolingType": coolingType,
+            "temperatureInc": temperatureInC,
+            "lowerLimit": limits['lowerLimit'],
+            "upperLimit": limits['upperLimit']}
+    return json
 
 
 def check_and_send(batteryChar, temperatureInC):
@@ -24,8 +24,7 @@ def check_and_send(batteryChar, temperatureInC):
 
 
 def send_to_stream(breachType):
-  header = 0xfeed
-  print(f'{header}, {breachType}')
+  print(f'{breachType}')
   return True
 
 
