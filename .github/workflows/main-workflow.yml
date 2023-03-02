@@ -43,5 +43,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: pyinstaller
-          path: src/dist/linux
+          path: dist/stream_line_sender.executable
+      - name: Run build
+        run: |
+          .\stream_line_sender.executable
 
