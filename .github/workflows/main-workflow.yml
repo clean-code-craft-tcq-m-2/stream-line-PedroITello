@@ -39,6 +39,7 @@ jobs:
       - name: Build sender
         run: |
           pyinstaller --onefile stream_line_sender.executable.py
+      - name: Upload build
         uses: actions/upload-artifact@v2
         with:
           name: pyinstaller
