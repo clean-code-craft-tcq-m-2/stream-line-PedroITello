@@ -44,8 +44,6 @@ jobs:
         with:
           name: pyinstaller
           path: dist/stream_line_sender.executable
-      - name: List files
-        run: ls
       - name: Run build
         run: |
           dist/stream_line_sender.executable
