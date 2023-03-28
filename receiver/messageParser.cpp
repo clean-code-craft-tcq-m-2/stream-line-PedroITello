@@ -1,6 +1,5 @@
 #include "messageParser.h"
 #include <algorithm>
-#include <list>
 #include <cstring>
 #include <cctype>
 
@@ -15,9 +14,6 @@ bool messageParser::cleanMessage(string& payload){
 }
 
 bool messageParser::separateTokens(const string& payload){
-    // Ensure sample clearance
-    sample.clear();
-
     // Split into tokens from separators
     strcpy(cBuffer, payload.c_str());
     char* tokenptr;
@@ -27,12 +23,17 @@ bool messageParser::separateTokens(const string& payload){
         parts.push_back(static_cast<string>(tokenptr));
         tokenptr = strtok(NULL, ":,");
     }
+    return mapTokens(parts);
+}
 
-    // Map tokens
-    for(list<string>::iterator li = parts.begin(); li != parts.end(); li++){
+bool messageParser::mapTokens(list<string> segments){
+    // Ensure sample clearance
+    sample.clear();
+    for(list<string>::iterator li = segments.begin();
+        li != segments.end(); li++){
         string key=*li;
         li++;
-        if(li==parts.end()){
+        if(li==segments.end()){
             return false;
         }
         string value=*li;
