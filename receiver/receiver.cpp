@@ -11,29 +11,32 @@
 using namespace std;
 
 bool receiver::getSample(){
-    getline(std::cin, inputBuffer);
+    inputBuffer = "";
+    getline(cin >> ws, inputBuffer);
     msgParser->mapMessage(inputBuffer);
     return true;
 }
 
 bool receiver::processSample(){
-    string outputBuffer = sHandler->handleSample();
-    cout<<outputBuffer<<endl;
+    if(inputBuffer.length() != 0){
+        string outputBuffer = sHandler->handleSample();
+        cout<<outputBuffer<<endl;
+    }
     return true;
 }
 
 void receiver::timerThread(int pollingSeconds){
     while(pollingFlag){
-        std::this_thread::sleep_for(std::chrono::seconds(pollingSeconds));
+        this_thread::sleep_for(chrono::seconds(pollingSeconds));
         timerCounter++;
         if(TIMEOUTTRIALS<=timerCounter){
-            std::exit(0);
+            exit(0);
         }
     }
 }
 
 void receiver::run(){
-    std::thread th(&timerThread, this, std::ref(POLLINGSECONDS));
+    thread th(&timerThread, this, ref(POLLINGSECONDS));
     th.detach();
 
     while(pollingFlag){
