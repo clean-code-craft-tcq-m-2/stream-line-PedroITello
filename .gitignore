@@ -1,0 +1,8 @@
+\build
+\dist
+*.html
+*.css
+*.gcda
+*.gcno
+*.exe
+*.bat
